@@ -1,0 +1,11 @@
+#ref： https://hauner.github.io/blog/2021/openapi-processor-model-name-suffix
+openapi-processor-mapping: v6
+options:
+  package-name: cn.ctyun.agent.builder.openapi.product
+  model-name-suffix: VO
+
+map:
+  result: org.springframework.http.ResponseEntity
+  types: # list of global mappings
+    - type: array => java.util.List
+    - type: string:date-time => java.time.LocalDateTime

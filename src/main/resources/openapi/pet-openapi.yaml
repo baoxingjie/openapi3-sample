@@ -1,0 +1,209 @@
+
+openapi: "3.0.3"
+info:
+  title: inventory-api
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080
+paths:
+  /pets:
+    get:
+      tags:
+        - Pet
+      description: 获取所有宠物
+      operationId: getAllPets
+      responses:
+        '200':
+          description: 成功返回所有宠物
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetList'
+        '404':
+          description: 未找到任何宠物
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+    post:
+      tags:
+        - Pet
+      description: 添加宠物到库存
+      operationId: addPet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '201':
+          description: 宠物添加成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: 请求错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+  /pets/{id}:
+    get:
+      tags:
+        - Pet
+      description: 根据 ID 获取宠物
+      operationId: getPetById
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: 宠物 ID
+          required: true
+      responses:
+        '200':
+          description: 成功获取宠物
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '404':
+          description: 未找到宠物
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+    put:
+      tags:
+        - Pet
+      description: 更新宠物信息
+      operationId: updatePet
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: 宠物 ID
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '200':
+          description: 宠物更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: 请求错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+        '404':
+          description: 宠物不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+    delete:
+      tags:
+        - Pet
+      description: 删除指定 ID 的宠物
+      operationId: deletePetById
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: int64
+            description: 宠物 ID
+          required: true
+      responses:
+        '204':
+          description: 宠物删除成功
+        '404':
+          description: 宠物不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error2'
+
+components:
+  schemas:
+    Pageable:
+      description: group Pageable query parameters
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
+    Page:
+      description: minimal Page response without content property
+      type: object
+      properties:
+        number:
+          type: integer
+          description: page number
+          example: 0
+        size:
+          type: integer
+          description: page size
+          example: 10
+
+    PetPage:
+      description: combine Page with typed Page content
+      type: object
+      properties:
+        totalSize:
+          type: integer
+        data:
+          $ref: '#/components/schemas/PetList'
+
+
+    PetList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pet'
+
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 宠物 ID
+        name:
+          type: string
+          description: 宠物名称
+        type:
+          type: integer
+          format: int32
+          description: 宠物类型
+        create_time:
+          type: string
+          format: date-time
+          description: 宠物创建时间
+        price:
+          type: number
+          format: double
+          description: 宠物价格
+        show:
+          type: boolean
+          description: 宠物是否显示
+        password:
+          type: string
+          format: password
+          description: 宠物密码
+    Error2:
+      type: object
+      properties:
+        message:
+          type: string
