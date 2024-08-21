@@ -1,0 +1,1 @@
+the samples for openapiprocessor maven plugin
