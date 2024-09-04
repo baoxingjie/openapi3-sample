@@ -1,4 +1,4 @@
-package com.example.openapi3_sample;
+package cn.ctyun.agent.builder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

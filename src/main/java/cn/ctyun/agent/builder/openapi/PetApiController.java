@@ -1,4 +1,4 @@
-package com.example.openapi3_sample;
+package cn.ctyun.agent.builder.openapi;
 
 import cn.ctyun.agent.builder.openapi.pet.api.PetApi;
 import cn.ctyun.agent.builder.openapi.pet.model.PetVO;
@@ -43,6 +43,12 @@ public class PetApiController implements PetApi {
     public ResponseEntity<Void> deletePetById(Long id) {
         return ResponseEntity.noContent().build();
     }
+
+//    @Override
+//    public ResponseEntity<PetPageVO> getPage(Pageable pageable) {
+//        return null;
+//    }
+
 
     private static PetVO mockPetVO() {
         PetVO petVO = new PetVO();

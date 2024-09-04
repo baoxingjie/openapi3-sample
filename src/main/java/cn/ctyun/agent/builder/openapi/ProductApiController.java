@@ -1,4 +1,4 @@
-package com.example.openapi3_sample;
+package cn.ctyun.agent.builder.openapi;
 
 import cn.ctyun.agent.builder.openapi.product.api.ProductApi;
 import cn.ctyun.agent.builder.openapi.product.model.ProductVO;
@@ -43,6 +43,11 @@ public class ProductApiController implements ProductApi {
     public ResponseEntity<Void> deleteProductById(Long id) {
         return ResponseEntity.noContent().build();
     }
+
+//    @Override
+//    public ResponseEntity<ProductPageVO> getPage(Pageable pageable) {
+//        return null;
+//    }
 
 
     private static ProductVO mockProductVO() {
